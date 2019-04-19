@@ -3,7 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.2.71'
     ext.kotlin_version = '1.2.30'
-    ext.zoho_desk_portal_version = '0.824'
+    ext.zoho_desk_portal_version = '1.0.1'
 
     
     repositories {

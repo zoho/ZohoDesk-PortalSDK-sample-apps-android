@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("APITEST", exception.getErrorMsg());
             }
         }, categoryId, null, 0, 10, false);
+
+        //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
     }
 
     public void getMostDiscussedTopics(View view) {
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("APITEST", exception.getErrorMsg());
             }
         }, categoryId, null, 0, 10, false);
+
+        //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
     }
 
     private void renderTopics(ArrayList<DeskForumResponse> forumResponses) {

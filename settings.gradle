@@ -1,3 +1,1 @@
-include ':statistics_events_callback_sample', ':sdk_apis_sample'
-//include ':basic_sample_java', ':basic_sample_kotlin', ':push_notification_sample', ':jwt_authentication_sample', ':theme_override_sample'
-include ":jwt_authentication_sample"
+include ':basic_sample_java', ':basic_sample_kotlin', ':push_notification_sample', ':jwt_authentication_sample', ':theme_override_sample', ':statistics_events_callback_sample', ':sdk_apis_sample'

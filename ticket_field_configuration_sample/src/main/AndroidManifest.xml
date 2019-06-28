@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zoho.deskportalsdk.demo.jwt"
+    package="com.ticketfield.ticket_field_configuration_sample"
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".MyApplication"
-        tools:replace="android:theme, android:allowBackup">
+        tools:replace="android:theme, android:allowBackup"
+        android:name=".MyApplication">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

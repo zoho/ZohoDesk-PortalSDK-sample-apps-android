@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zoho.deskportalsdk.android.network.DeskCallback;
+import com.zoho.deskportalsdk.android.network.DeskCommunityCategoriesList;
 import com.zoho.deskportalsdk.android.network.DeskForumResponse;
 import com.zoho.deskportalsdk.android.network.DeskTopicsList;
 
@@ -24,6 +25,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         topicsLayout = (LinearLayout) findViewById(R.id.topics_layout);
+        getCommunityCategories();
+    }
+
+    private void getCommunityCategories() {
+        MyApplication.zohoDeskPortalSDKInstnace.getCommunityCategories(new DeskCallback.DeskCommunityCategoriesCallback() {
+            @Override
+            public void onCommunityCategoriesCompleted(DeskCommunityCategoriesList deskCommunityCategoriesList) {
+                if(deskCommunityCategoriesList != null && deskCommunityCategoriesList.getData() != null && deskCommunityCategoriesList.getData().size() > 0) {
+                    categoryId = deskCommunityCategoriesList.getData().get(0).getId();
+                }
+            }
+
+            @Override
+            public void onException(DeskException e) {
+                Log.i("APITEST", e.getErrorMsg());
+            }
+        });
     }
 
 
@@ -40,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onException(DeskException exception) {
                 Log.i("APITEST", exception.getErrorMsg());
             }
-        }, categoryId, null, 0, 10, false);
+        }, categoryId, null, 1, 10, false);
 
         //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
     }
@@ -58,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onException(DeskException exception) {
                 Log.i("APITEST", exception.getErrorMsg());
             }
-        }, categoryId, null, 0, 10, false);
+        }, categoryId, null, 1, 10, false);
 
         //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
     }

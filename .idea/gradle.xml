@@ -8,9 +8,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/basic_sample_java" />
+            <option value="$PROJECT_DIR$/basic_sample_kotlin" />
             <option value="$PROJECT_DIR$/jwt_authentication_sample" />
+            <option value="$PROJECT_DIR$/push_notification_sample" />
             <option value="$PROJECT_DIR$/sdk_apis_sample" />
             <option value="$PROJECT_DIR$/statistics_events_callback_sample" />
+            <option value="$PROJECT_DIR$/theme_override_sample" />
+            <option value="$PROJECT_DIR$/ticket_field_configuration_sample" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

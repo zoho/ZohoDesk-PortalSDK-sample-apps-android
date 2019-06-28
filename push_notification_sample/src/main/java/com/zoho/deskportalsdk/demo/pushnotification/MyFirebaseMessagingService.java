@@ -9,4 +9,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         MyApplication.zohoDeskPortalSDKInstnace.handleNotification(getApplicationContext(), remoteMessage.getData(), R.mipmap.ic_launcher);
     }
+
+    @Override
+    public void onNewToken(String s) {
+        super.onNewToken(s);
+    }
 }

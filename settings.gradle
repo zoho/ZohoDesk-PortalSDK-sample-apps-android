@@ -1,1 +1,1 @@
-include ':basic_sample_java', ':basic_sample_kotlin', ':push_notification_sample', ':jwt_authentication_sample', ':theme_override_sample', ':statistics_events_callback_sample', ':sdk_apis_sample', ':ticket_field_configuration_sample'
+include ':basic_sample_java', ':basic_sample_kotlin', ':push_notification_sample', ':jwt_authentication_sample', ':theme_override_sample', ':statistics_events_callback_sample', ':sdk_apis_sample', ':ticket_field_configuration_sample', ':update_profile_sample'

@@ -1,3 +1,55 @@
 {
-  //REPLACE YOUR goole-services.json
+  "project_info": {
+    "project_number": "1019362507373",
+    "firebase_url": "https://desksdkmergebranches.firebaseio.com",
+    "project_id": "desksdkmergebranches",
+    "storage_bucket": "desksdkmergebranches.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019362507373:android:82aca6120a24e939",
+        "android_client_info": {
+          "package_name": "com.zoho.deskportalsdk.demo.pushnotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019362507373-sc0b0fa7cbhg42hdco01ketd08f31ki4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zoho.deskportalsdk.demo.pushnotification",
+            "certificate_hash": "0f36ac8aca910625ad42bba8004367666a92ad91"
+          }
+        },
+        {
+          "client_id": "1019362507373-v7oce293jcak3uku89ggjf5tqlc8776v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqQralH-qdgVBFQb_Ot00PSRKX8FHN6u8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019362507373-v7oce293jcak3uku89ggjf5tqlc8776v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }

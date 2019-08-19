@@ -42,15 +42,14 @@ public class MainActivity extends AppCompatActivity {
         *  For Updating a profile, Hash map of key, value pair needs to be sent.
         *
         * The possible Keys are,
-        * 1. emailAddress
-        * 2. twitter
-        * 3. phone
-        * 4. facebook
-        * 5. name
-        * 6. displayName
-        * 7. mobile
-        * 8. countryLocale
-        * 9. timeZone
+        * 1. twitter
+        * 2. phone
+        * 3. facebook
+        * 4. name
+        * 5. displayName
+        * 6. mobile
+        * 7. countryLocale
+        * 8. timeZone
         *
         * */
 

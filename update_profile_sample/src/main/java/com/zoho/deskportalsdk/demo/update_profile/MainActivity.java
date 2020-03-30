@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(!MyApplicaiton.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
-            MyApplicaiton.zohoDeskPortalSDKInstnace.setUserToken(userToken, new DeskCallback.DeskSetUserCallback() {
+            MyApplicaiton.zohoDeskPortalSDKInstnace.setUserToken("userToken", new DeskCallback.DeskSetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
 

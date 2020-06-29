@@ -3,7 +3,7 @@
 buildscript {
     ext.kotlin_version = '1.3.0'
     ext.kotlin_version = '1.3.0'
-    ext.zoho_desk_portal_version = '1.2.3'
+    ext.zoho_desk_portal_version = '2.0-beta'
 
     
     repositories {
@@ -13,7 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.gms:google-services:3.0.0'
     }
 }
 

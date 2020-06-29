@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.zoho.desk.asap.ZDPortalHome;
+import com.zoho.desk.asap.common.ZDPortalConfiguration;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setLightTheme(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.setThemeResource(R.style.zohoDeskCustomTheme);
-        MyApplication.zohoDeskPortalSDKInstnace.startDeskHomeScreen(this);
+        ZDPortalConfiguration.setThemeResource(R.style.zohoDeskCustomTheme);
+        ZDPortalHome.show(this);
     }
 
     public void setDarkTheme(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.setThemeResource(R.style.deskTheme_Dark);
-        MyApplication.zohoDeskPortalSDKInstnace.startDeskHomeScreen(this);
+        ZDPortalConfiguration.setThemeResource(R.style.deskTheme_Dark);
+        ZDPortalHome.show(this);
     }
 }

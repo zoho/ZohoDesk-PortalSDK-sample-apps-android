@@ -8,16 +8,21 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zoho.deskportalsdk.android.network.DeskCallback;
-import com.zoho.deskportalsdk.android.network.DeskCommunityCategoriesList;
-import com.zoho.deskportalsdk.android.network.DeskForumResponse;
-import com.zoho.deskportalsdk.android.network.DeskTopicsList;
+import com.zoho.desk.asap.api.ZDPortalCallback;
+import com.zoho.desk.asap.api.ZDPortalCommunityAPI;
+import com.zoho.desk.asap.api.ZDPortalException;
+import com.zoho.desk.asap.api.response.CommunityCategoriesList;
+import com.zoho.desk.asap.api.response.CommunityTopic;
+import com.zoho.desk.asap.api.response.DeskTopicsList;
+import com.zoho.desk.asap.asap_community.ZDPortalCommunity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    private long categoryId = -1;
+    private String categoryId;
     private LinearLayout topicsLayout;
 
     @Override
@@ -29,63 +34,70 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCommunityCategories() {
-        MyApplication.zohoDeskPortalSDKInstnace.getCommunityCategories(new DeskCallback.DeskCommunityCategoriesCallback() {
+        ZDPortalCommunityAPI.getCommunityCategories(new ZDPortalCallback.CommunityCategoriesCallback() {
             @Override
-            public void onCommunityCategoriesCompleted(DeskCommunityCategoriesList deskCommunityCategoriesList) {
-                if(deskCommunityCategoriesList != null && deskCommunityCategoriesList.getData() != null && deskCommunityCategoriesList.getData().size() > 0) {
-                    categoryId = deskCommunityCategoriesList.getData().get(0).getId();
+            public void onCommunityCategoriesDownloaded(CommunityCategoriesList communityCategoriesList) {
+                if(communityCategoriesList != null && communityCategoriesList.getData() != null && communityCategoriesList.getData().size() > 0) {
+                    categoryId = communityCategoriesList.getData().get(0).getId();
                 }
             }
 
             @Override
-            public void onException(DeskException e) {
+            public void onException(ZDPortalException e) {
                 Log.i("APITEST", e.getErrorMsg());
             }
-        });
+        }, null);
     }
 
 
     public void getMostPopularTopics(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.getMostPopularTopics(new DeskCallback.DeskCommunityTopicsListCallback() {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("categoryId", categoryId);//categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
+        params.put("from", "1");
+        params.put("limit", "20");
+        ZDPortalCommunityAPI.getMostPopularTopics(new ZDPortalCallback.CommunityTopicsCallback() {
             @Override
-            public void onTopicsListCompleted(DeskTopicsList response) {
-                if(response != null && response.getData() != null && response.getData().size() > 0) {
-                    renderTopics(response.getData());
+            public void onCommunityTopicsDownloaded(DeskTopicsList deskTopicsList) {
+                if(deskTopicsList != null && deskTopicsList.getData() != null && deskTopicsList.getData().size() > 0) {
+                    renderTopics(deskTopicsList.getData());
                 }
             }
 
             @Override
-            public void onException(DeskException exception) {
-                Log.i("APITEST", exception.getErrorMsg());
-            }
-        }, categoryId, null, 1, 10, false);
+            public void onException(ZDPortalException e) {
 
-        //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
+            }
+        }, params);
+
     }
 
     public void getMostDiscussedTopics(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.getMostDiscussedTopics(new DeskCallback.DeskCommunityTopicsListCallback() {
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("categoryId", categoryId);//categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
+        params.put("from", "1");
+        params.put("limit", "20");
+        ZDPortalCommunityAPI.getMostDiscussedTopics(new ZDPortalCallback.CommunityTopicsCallback() {
             @Override
-            public void onTopicsListCompleted(DeskTopicsList response) {
-                if(response != null && response.getData() != null && response.getData().size() > 0) {
-                    renderTopics(response.getData());
+            public void onCommunityTopicsDownloaded(DeskTopicsList deskTopicsList) {
+                if(deskTopicsList != null && deskTopicsList.getData() != null && deskTopicsList.getData().size() > 0) {
+                    renderTopics(deskTopicsList.getData());
                 }
             }
 
             @Override
-            public void onException(DeskException exception) {
-                Log.i("APITEST", exception.getErrorMsg());
-            }
-        }, categoryId, null, 1, 10, false);
+            public void onException(ZDPortalException e) {
 
-        //categoryId is the id of a Category for which the topics needs to be fetched. If the categoryId is -1, then it will be considered as org level
+            }
+        }, params);
     }
 
-    private void renderTopics(ArrayList<DeskForumResponse> forumResponses) {
+    private void renderTopics(ArrayList<CommunityTopic> forumResponses) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT );
         params.setMargins(20, 20, 20, 20);
         topicsLayout.removeAllViews();
-        for(DeskForumResponse forumResponse:forumResponses) {
+        for(CommunityTopic forumResponse:forumResponses) {
             TextView textView = new TextView(this);
             textView.setLayoutParams(params);
             textView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -94,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MyApplication.zohoDeskPortalSDKInstnace.startTopicDetails(MainActivity.this,Long.valueOf(v.getTag().toString()));
+                    ZDPortalCommunity.showTopicWithId(MainActivity.this, v.getTag().toString());
                 }
             });
             topicsLayout.addView(textView);

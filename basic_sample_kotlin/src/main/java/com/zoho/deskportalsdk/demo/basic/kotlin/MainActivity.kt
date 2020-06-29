@@ -3,6 +3,7 @@ package com.zoho.deskportalsdk.demo.basic.kotlin
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.zoho.desk.asap.ZDPortalHome
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +13,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun launchSDK(view: View) {
-        MyApplication.zohoDeskPortalSDKInstnace.startDeskHomeScreen(this)
+        ZDPortalHome.show(this)
     }
 }

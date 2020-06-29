@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.zoho.deskportalsdk.android.network.DeskCallback;
+import com.zoho.desk.asap.ZDPortalHome;
+import com.zoho.desk.asap.api.ZDPortalCallback;
+import com.zoho.desk.asap.api.ZDPortalException;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -18,7 +19,20 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void launchSDK(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.startDeskHomeScreen(MainActivity.this);
+
+        if(!MyApplication.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
+            MyApplication.zohoDeskPortalSDKInstnace.setUserToken("vigneshthillaichithambaram@gmail.com", new ZDPortalCallback.SetUserCallback() {
+                @Override
+                public void onUserSetSuccess() {
+                }
+
+                @Override
+                public void onException(ZDPortalException e) {
+                }
+            });
+        }
+
+        ZDPortalHome.show(this);
     }
 
     public void enablePush(View view) {

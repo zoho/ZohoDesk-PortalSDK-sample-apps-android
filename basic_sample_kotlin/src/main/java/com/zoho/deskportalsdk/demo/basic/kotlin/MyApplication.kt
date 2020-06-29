@@ -1,8 +1,7 @@
 package com.zoho.deskportalsdk.demo.basic.kotlin
 
 import android.app.Application
-import com.zoho.deskportalsdk.DeskConfig
-import com.zoho.deskportalsdk.ZohoDeskPortalSDK
+import com.zoho.desk.asap.api.ZohoDeskPortalSDK
 
 class MyApplication : Application() {
 
@@ -12,10 +11,10 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val config = DeskConfig.Builder().build()
+        ZohoDeskPortalSDK.Logger.enableLogs()
         zohoDeskPortalSDKInstnace = ZohoDeskPortalSDK.getInstance(this)
         zohoDeskPortalSDKInstnace.initDesk(0 /*YOUR ORG ID*/,
-                "YOUR APP ID", ZohoDeskPortalSDK.DataCenter.US /*YOUR DATA CENTER*/, config)
+                "YOUR APP ID", ZohoDeskPortalSDK.DataCenter.US /*YOUR DATA CENTER*/)
 
         /*
         *  You would find the org Id, app Id and the Datacenter information from your Zoho Desk Portal -> ASAP -> Mobile section

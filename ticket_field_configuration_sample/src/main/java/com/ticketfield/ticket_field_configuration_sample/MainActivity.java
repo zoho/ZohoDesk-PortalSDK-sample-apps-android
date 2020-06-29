@@ -4,12 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zoho.deskportalsdk.android.model.PreFillTicketFiled;
-import com.zoho.deskportalsdk.android.network.DeskCallback;
-import com.zoho.deskportalsdk.android.network.DeskTicketFieldList;
-import com.zoho.deskportalsdk.android.network.DeskTicketFieldResponse;
+import com.zoho.desk.asap.api.ZDPortalCallback;
+import com.zoho.desk.asap.api.ZDPortalException;
+import com.zoho.desk.asap.api.ZDPortalTicketsAPI;
+import com.zoho.desk.asap.api.response.TicketField;
+import com.zoho.desk.asap.api.response.TicketFieldsList;
+import com.zoho.desk.asap.asap_tickets.ZDPortalSubmitTicket;
+import com.zoho.desk.asap.asap_tickets.utils.PreFillTicketField;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,29 +28,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getTicketFields() {
-        MyApplication.zohoDeskPortalSDKInstnace.getTicketsFieldsList(fieldsCallback);
-        /*If the ASAP is configured for single department, department id is opitonal. Else, the department id is mandatory*/
-        MyApplication.zohoDeskPortalSDKInstnace.getTicketsFieldsList(fieldsCallback, 0l);
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("departmentId", "deptId");
+        ZDPortalTicketsAPI.getTicketFields(fieldsCallback, params, "apiName");
     }
 
     public void  configureListToBeShown(View view) {
 
         listTobeShown.add("field api name"); /* replace your field api name*/
         listTobeShown.add("field api name"); /* replace your field api name. Field API name can be found through, ticket fields API.*/
-        MyApplication.zohoDeskPortalSDKInstnace.setTicketsFieldsListTobeShown(listTobeShown);
+        ZDPortalSubmitTicket.setTicketsFieldsListTobeShown(listTobeShown);
         /*If the ASAP is configured for single department, department id is opitonal. Else, the department id is mandatory*/
-        MyApplication.zohoDeskPortalSDKInstnace.setTicketsFieldsListTobeShown(listTobeShown, 0l);
+        ZDPortalSubmitTicket.setTicketsFieldsListTobeShown(listTobeShown, "departmentId");
     }
 
     public void configureValuesToFields(View view) {
-        List<PreFillTicketFiled> preFillTicketFiledList = new ArrayList<>();
+        List<PreFillTicketField> preFillTicketFiledList = new ArrayList<>();
         Object fieldValue = "ticket field value";
         boolean iseditable = true;
-        preFillTicketFiledList.add(new PreFillTicketFiled("field api name", fieldValue, iseditable));
-        preFillTicketFiledList.add(new PreFillTicketFiled("field api name", fieldValue, iseditable));
-        MyApplication.zohoDeskPortalSDKInstnace.preFillTicketFields(preFillTicketFiledList);
+        preFillTicketFiledList.add(new PreFillTicketField("field api name", fieldValue, iseditable));
+        preFillTicketFiledList.add(new PreFillTicketField("field api name", fieldValue, iseditable));
+        ZDPortalSubmitTicket.preFillTicketFields(preFillTicketFiledList);
         /*If the ASAP is configured for single department, department id is opitonal. Else, the department id is mandatory*/
-        MyApplication.zohoDeskPortalSDKInstnace.preFillTicketFields(preFillTicketFiledList, 0l);
+        ZDPortalSubmitTicket.preFillTicketFields(preFillTicketFiledList, "departmentId");
 
         /* replace your field api name. Field API name can be found through, ticket fields API.*/
         /*
@@ -64,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitTicket(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.startNewTicket(this);
+        ZDPortalSubmitTicket.show(this);
     }
 
-    private DeskCallback.DeskTicketsFieldsCallback fieldsCallback = new DeskCallback.DeskTicketsFieldsCallback() {
+    private ZDPortalCallback.TicketFieldsCallback fieldsCallback = new ZDPortalCallback.TicketFieldsCallback() {
         @Override
-        public void onTicketsFieldsLoaded(DeskTicketFieldList deskTicketFieldList) {
-            for(DeskTicketFieldResponse fieldResponse:deskTicketFieldList.getData()) {
+        public void onTicketFieldsDownloaded(TicketFieldsList ticketFieldsList) {
+            for(TicketField fieldResponse:ticketFieldsList.getData()) {
                 listTobeShown.add(fieldResponse.getApiName());
                 //populate the list listTobeShown for the field that needs to be shown in the Submit Ticket module
             }
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onException(DeskCallback.DeskException e) {
+        public void onException(ZDPortalException e) {
 
         }
     };

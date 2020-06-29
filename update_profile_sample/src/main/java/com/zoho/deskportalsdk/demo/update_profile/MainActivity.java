@@ -6,7 +6,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.zoho.deskportalsdk.android.network.DeskCallback;
+
+import com.zoho.desk.asap.api.ZDPortalAPI;
+import com.zoho.desk.asap.api.ZDPortalCallback;
+import com.zoho.desk.asap.api.ZDPortalException;
+import com.zoho.desk.asap.api.response.DeskUserProfile;
 
 import org.json.JSONObject;
 
@@ -20,14 +24,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(!MyApplicaiton.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
-            MyApplicaiton.zohoDeskPortalSDKInstnace.setUserToken("userToken", new DeskCallback.DeskSetUserCallback() {
+            MyApplicaiton.zohoDeskPortalSDKInstnace.setUserToken("userToken", new ZDPortalCallback.SetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
-
                 }
 
                 @Override
-                public void onException(DeskException e) {
+                public void onException(ZDPortalException e) {
 
                 }
             });
@@ -57,16 +60,17 @@ public class MainActivity extends AppCompatActivity {
         HashMap<String, String> profileData = new HashMap<>();
         profileData.put("displayName", "displayName");
         profileData.put("mobile", "123456");
-        MyApplicaiton.zohoDeskPortalSDKInstnace.updateProfile(profileData, new DeskCallback.DeskUpdateProfileCallback() {
+
+        ZDPortalAPI.updateProfileDetails(new ZDPortalCallback.UserDetailsCallback() {
             @Override
-            public void onProfileUpdated(JSONObject jsonObject) {
+            public void onUserDetailsSuccess(DeskUserProfile deskUserProfile) {
                 Log.i("UpdateProfile", "Success");
             }
 
             @Override
-            public void onException(final DeskCallback.DeskException exception) {
+            public void onException(ZDPortalException e) {
                 Log.i("UpdateProfile", "Exception");
             }
-        });
+        }, profileData);
     }
 }

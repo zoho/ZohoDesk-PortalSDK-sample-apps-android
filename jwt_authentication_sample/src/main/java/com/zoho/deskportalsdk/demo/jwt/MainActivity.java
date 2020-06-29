@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zoho.deskportalsdk.android.network.DeskCallback;
+import com.zoho.desk.asap.ZDPortalHome;
+import com.zoho.desk.asap.api.ZDPortalCallback;
+import com.zoho.desk.asap.api.ZDPortalException;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,19 +26,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUserToken(View view) {
         EditText userTokenView = (EditText) findViewById(R.id.user_token);
-        if(!MyApplication.zohoDeskPortalSDKInstnace.isUserSignedIn() || !isMigratedTo1_0()) {
+        if(!MyApplication.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
             progrssBar.setVisibility(View.VISIBLE);
-            MyApplication.zohoDeskPortalSDKInstnace.setUserToken(userTokenView.getText().toString(), new DeskCallback.DeskSetUserCallback() {
+            MyApplication.zohoDeskPortalSDKInstnace.setUserToken(userTokenView.getText().toString(), new ZDPortalCallback.SetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
                     Toast.makeText(getApplicationContext(), "User set success", Toast.LENGTH_SHORT).show();
                     progrssBar.setVisibility(View.GONE);
-                    MyApplication.zohoDeskPortalSDKInstnace.startDeskHomeScreen(MainActivity.this);
-                    isMigratedTo1_0(true);
+                    ZDPortalHome.show(MainActivity.this);
                 }
 
                 @Override
-                public void onException(DeskException e) {
+                public void onException(ZDPortalException e) {
                     Toast.makeText(getApplicationContext(), "User set failure", Toast.LENGTH_SHORT).show();
                     progrssBar.setVisibility(View.GONE);
                 }
@@ -47,27 +49,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logoutFromSDK(View view) {
-        MyApplication.zohoDeskPortalSDKInstnace.removeUser(new DeskCallback.DeskRemoveUserCallback() {
+        MyApplication.zohoDeskPortalSDKInstnace.logout(new ZDPortalCallback.LogoutCallback() {
             @Override
-            public void onUserRemoveSuccess() {
+            public void onLogoutSuccess() {
                 //user removed from SDK.
             }
 
             @Override
-            public void onException(DeskException exception) {
+            public void onException(ZDPortalException e) {
+
             }
         });
-    }
-
-    private boolean isMigratedTo1_0() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        return settings.getBoolean("isMigrated", false);
-    }
-
-    private void isMigratedTo1_0(boolean isMigrated) {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("isMigrated", isMigrated);
-        editor.commit();
     }
 }

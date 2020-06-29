@@ -3,10 +3,11 @@ package com.zoho.deskportalsdk.demo.stats.events;
 import android.app.Application;
 import android.util.Log;
 
-import com.zoho.deskportalsdk.DeskConfig;
-import com.zoho.deskportalsdk.ZohoDeskPortalSDK;
-import com.zoho.deskportalsdk.android.network.DeskCallback;
-import com.zoho.deskportalsdk.android.util.ZDeskEvents;
+import com.zoho.desk.asap.api.ZohoDeskPortalSDK;
+import com.zoho.desk.asap.common.ZDPortalConfiguration;
+import com.zoho.desk.asap.common.utils.ZDPortalEventsCallback;
+import com.zoho.desk.asap.common.utils.ZDeskEvents;
+
 
 public class MyApplication extends Application {
 
@@ -17,19 +18,19 @@ public class MyApplication extends Application {
         super.onCreate();
 
         ZohoDeskPortalSDK.Logger.enableLogs();
-        DeskConfig config = new DeskConfig.Builder().build();
         zohoDeskPortalSDKInstnace = ZohoDeskPortalSDK.getInstance(this);
         zohoDeskPortalSDKInstnace.initDesk(0 /*YOUR ORG ID*/,
-                "YOUR APP ID", ZohoDeskPortalSDK.DataCenter.US /*YOUR DATA CENTER*/, config);
+                "YOUR APP ID", ZohoDeskPortalSDK.DataCenter.US /*YOUR DATA CENTER*/);
 
         /*
          *  You would find the org Id, app Id and the Datacenter information from your Zoho Desk Portal -> ASAP -> Mobile section
          * */
 
-        zohoDeskPortalSDKInstnace.setEventsCallback(zohoDeskEventsCallback);
+
+        ZDPortalConfiguration.setEventsCallback(zohoDeskEventsCallback);
     }
 
-    private DeskCallback.DeskEventsCallback zohoDeskEventsCallback = new DeskCallback.DeskEventsCallback() {
+    private ZDPortalEventsCallback zohoDeskEventsCallback = new ZDPortalEventsCallback() {
         @Override
         public void onDeskEvent(ZDeskEvents.ScreenName screenName, ZDeskEvents.Event event, ZDeskEvents.SourceOfTheEvent sourceOfTheEvent, ZDeskEvents.ActionName actionName, String s, String s1) {
             if(actionName == ZDeskEvents.ActionName.KB_ARTICLE_CLICK) {

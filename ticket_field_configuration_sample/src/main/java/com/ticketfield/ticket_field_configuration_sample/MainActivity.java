@@ -7,8 +7,10 @@ import android.view.View;
 import com.zoho.desk.asap.api.ZDPortalCallback;
 import com.zoho.desk.asap.api.ZDPortalException;
 import com.zoho.desk.asap.api.ZDPortalTicketsAPI;
+import com.zoho.desk.asap.api.response.Ticket;
 import com.zoho.desk.asap.api.response.TicketField;
 import com.zoho.desk.asap.api.response.TicketFieldsList;
+import com.zoho.desk.asap.api.response.TicketStatusMapping;
 import com.zoho.desk.asap.asap_tickets.ZDPortalSubmitTicket;
 import com.zoho.desk.asap.asap_tickets.utils.PreFillTicketField;
 
@@ -19,6 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<String> listTobeShown = new ArrayList<>();
+    String closedStatus = "Closed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,4 +90,50 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    public void updateTicketStatus() {
+        String ticketId = "";
+
+        HashMap<String, Object> ticketValues  = new HashMap<>();
+        ticketValues.put("status", closedStatus); // This closedStatus Value needs to be get from the status mapping
+        // of the Ticket Field response. You can refer to the getTicketClosedStatus()
+        ZDPortalTicketsAPI.updateTicket(new ZDPortalCallback.TicketDetailsCallback() {
+            @Override
+            public void onTicketDetailsCallback(Ticket ticket) {
+                //Ticket Status updated
+            }
+
+            @Override
+            public void onException(ZDPortalException e) {
+                //Ticket Status onexception
+            }
+        }, ticketId, ticketValues, null);
+    }
+
+
+    public void getTicketClosedStatus() {
+        String departmentId = "";
+        HashMap<String, String> params = new HashMap<>();
+        params.put("departmentId", String.valueOf(departmentId)); //NO I18N
+        ZDPortalTicketsAPI.getTicketFields(new ZDPortalCallback.TicketFieldsCallback() {
+            @Override
+            public void onTicketFieldsDownloaded(TicketFieldsList ticketFieldsList) {
+                for(TicketField field :ticketFieldsList.getData()) {
+                    if("status".equalsIgnoreCase(field.getApiName())) {
+                        for(TicketStatusMapping mapping:field.getStatusMapping()) {
+                            if("closed".equalsIgnoreCase(mapping.getName())) {
+                                closedStatus = mapping.getMappingValue();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onException(ZDPortalException e) {
+
+            }
+        }, params, "apiName"); //No I18N
+    }
 }

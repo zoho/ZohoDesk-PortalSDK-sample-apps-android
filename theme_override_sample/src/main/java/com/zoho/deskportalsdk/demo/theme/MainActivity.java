@@ -1,11 +1,15 @@
 package com.zoho.deskportalsdk.demo.theme;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.zoho.desk.asap.ZDPortalHome;
 import com.zoho.desk.asap.common.ZDPortalConfiguration;
+import com.zoho.desk.asap.common.utils.ZDPTheme;
+import com.zoho.desk.asap.common.utils.ZDPThemeType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,12 +20,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setLightTheme(View view) {
-        ZDPortalConfiguration.setThemeResource(R.style.zohoDeskCustomTheme);
+        ZDPortalConfiguration.setThemeType(ZDPThemeType.LIGHT);
+        ZDPortalConfiguration.setThemeBuilder(new ZDPTheme.Builder(false)
+                .setColorPrimary(getResources().getColor(R.color.colorPrimary))
+                .setColorPrimaryDark(getResources().getColor(R.color.colorPrimaryDark))
+                .build());
         ZDPortalHome.show(this);
     }
 
     public void setDarkTheme(View view) {
-        ZDPortalConfiguration.setThemeResource(R.style.deskTheme_Dark);
+        ZDPortalConfiguration.setThemeType(ZDPThemeType.DARK);
         ZDPortalHome.show(this);
     }
 }

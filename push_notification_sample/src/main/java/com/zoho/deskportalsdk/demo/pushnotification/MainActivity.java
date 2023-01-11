@@ -1,16 +1,17 @@
 package com.zoho.deskportalsdk.demo.pushnotification;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.zoho.desk.asap.ZDPortalHome;
 import com.zoho.desk.asap.api.ZDPortalCallback;
 import com.zoho.desk.asap.api.ZDPortalException;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,11 +1,12 @@
 package com.zoho.deskportalsdk.demo.update_profile;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.zoho.desk.asap.api.ZDPortalAPI;
 import com.zoho.desk.asap.api.ZDPortalCallback;

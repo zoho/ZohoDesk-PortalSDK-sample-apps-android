@@ -1,8 +1,9 @@
 package com.ticketfield.ticket_field_configuration_sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.zoho.desk.asap.api.ZDPortalCallback;
 import com.zoho.desk.asap.api.ZDPortalException;
@@ -41,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         listTobeShown.add("field api name"); /* replace your field api name*/
         listTobeShown.add("field api name"); /* replace your field api name. Field API name can be found through, ticket fields API.*/
-        ZDPortalSubmitTicket.setTicketsFieldsListTobeShown(listTobeShown);
-        /*If the ASAP is configured for single department, department id is opitonal. Else, the department id is mandatory*/
-        ZDPortalSubmitTicket.setTicketsFieldsListTobeShown(listTobeShown, "departmentId");
+        ZDPortalSubmitTicket.setTicketsFieldsListTobeShown(listTobeShown, "departmentId", "layoutId");
     }
 
     public void configureValuesToFields(View view) {
@@ -52,9 +51,7 @@ public class MainActivity extends AppCompatActivity {
         boolean iseditable = true;
         preFillTicketFiledList.add(new PreFillTicketField("field api name", fieldValue, iseditable));
         preFillTicketFiledList.add(new PreFillTicketField("field api name", fieldValue, iseditable));
-        ZDPortalSubmitTicket.preFillTicketFields(preFillTicketFiledList);
-        /*If the ASAP is configured for single department, department id is opitonal. Else, the department id is mandatory*/
-        ZDPortalSubmitTicket.preFillTicketFields(preFillTicketFiledList, "departmentId");
+        ZDPortalSubmitTicket.preFillTicketFields(preFillTicketFiledList, "departmentId", "layoutId");
 
         /* replace your field api name. Field API name can be found through, ticket fields API.*/
         /*

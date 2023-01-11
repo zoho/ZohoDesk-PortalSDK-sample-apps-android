@@ -1,8 +1,8 @@
 package com.zoho.deskportalsdk.demo.basic.kotlin
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.zoho.desk.asap.ZDPortalHome
 
 class MainActivity : AppCompatActivity() {

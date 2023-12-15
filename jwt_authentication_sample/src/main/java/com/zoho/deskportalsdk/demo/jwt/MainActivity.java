@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         progrssBar = findViewById(R.id.progressbar);
     }
 
-    public void setUserToken(View view) {
-        EditText userTokenView = (EditText) findViewById(R.id.user_token);
+    public void loginWithJWTToken(View view) {
+        EditText jwtTokenView = (EditText) findViewById(R.id.jwt_token);
         if(!MyApplication.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
             progrssBar.setVisibility(View.VISIBLE);
-            MyApplication.zohoDeskPortalSDKInstnace.setUserToken(userTokenView.getText().toString(), new ZDPortalCallback.SetUserCallback() {
+            MyApplication.zohoDeskPortalSDKInstnace.loginWithJWTToken(jwtTokenView.getText().toString(), new ZDPortalCallback.SetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
                     Toast.makeText(getApplicationContext(), "User set success", Toast.LENGTH_SHORT).show();

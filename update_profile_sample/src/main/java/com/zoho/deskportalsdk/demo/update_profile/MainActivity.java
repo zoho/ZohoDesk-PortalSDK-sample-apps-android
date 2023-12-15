@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if(!MyApplicaiton.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
-            MyApplicaiton.zohoDeskPortalSDKInstnace.setUserToken("userToken", new ZDPortalCallback.SetUserCallback() {
+            MyApplicaiton.zohoDeskPortalSDKInstnace.loginWithJWTToken("jwtToken", new ZDPortalCallback.SetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
                 }

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(!MyApplication.zohoDeskPortalSDKInstnace.isUserSignedIn()) {
             /* You need to replace with actual user token. The Ticket push notification will get registered, once the user auth is success*/
-            MyApplication.zohoDeskPortalSDKInstnace.setUserToken("user_token", new ZDPortalCallback.SetUserCallback() {
+            MyApplication.zohoDeskPortalSDKInstnace.loginWithJWTToken("jwt_token", new ZDPortalCallback.SetUserCallback() {
                 @Override
                 public void onUserSetSuccess() {
                     //User authentication success

@@ -7,10 +7,10 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/user_token"
+        android:id="@+id/jwt_token"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="user token"
+        android:hint="jwt token"
         android:layout_marginTop="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,11 +20,11 @@
         android:id="@+id/set_user_token"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set user token"
-        android:onClick="setUserToken"
+        android:text="Login using JWT token"
+        android:onClick="loginWithJWTToken"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_token"/>
+        app:layout_constraintTop_toBottomOf="@+id/jwt_token"/>
 
     <Button
         android:layout_width="wrap_content"

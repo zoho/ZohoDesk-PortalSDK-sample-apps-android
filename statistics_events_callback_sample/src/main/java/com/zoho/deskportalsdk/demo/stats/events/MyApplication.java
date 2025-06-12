@@ -34,6 +34,12 @@ public class MyApplication extends Application {
     private ZDPEventsCallback zohoDeskEventsCallback = new ZDPEventsCallback() {
         @Override
         public void onEvent(@NotNull String eventName, @NotNull HashMap<String, String> eventData) {
+            //The screen where the event occurred (e.g., Home, Articles_List)
+            String eventsScreen = eventData.getOrDefault(ZDPEvents.EventScreen, null);
+            //The UI element related to the event (e.g., Recent_Articles)
+            String eventsSource = eventData.getOrDefault(ZDPEvents.EventSource, null);
+            //Extra data about the event, like the permalink of a clicked article or a selected filter
+            String eventsData = eventData.getOrDefault(ZDPEvents.EventData, null);
             if(eventName.equals(ZDPEvents.EventName.KB_ARTICLE_CLICK.getValue())) {
                 Log.i("EVENT","An Article is clicked.");
                 //An Article is clicked. You can Log or Push this to any of the Analytics tools.
